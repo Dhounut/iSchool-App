@@ -1,0 +1,120 @@
+﻿@model WP3.Models.ApiMod
+@{
+    ViewData["Title"] = Model.pTitle;
+}
+
+
+<h1>@Model.pep.title</h1>
+<p id="subTitle">@Model.pep.subTitle</p>
+<hr />
+<div id="pepEverything">
+    <div id="tabTest">
+        <ul>
+            <li><a href="#faculty">Faculty</a></li>
+            <li><a href="#staff">Staff</a></li>
+        </ul>
+        <!-- Faculty Section -->
+        <div id="faculty">
+            @foreach (var faculty in Model.pep.faculty)
+            {
+                var idableName = faculty.name.Replace(" ", "_").Replace(".", "").Replace(",", "").Replace("'", "").Replace("\"", "");
+                <div class="person">
+                    <img src="@faculty.imagePath" alt="pic" />
+                    <h2>
+                        Name: @faculty.name
+                    </h2>
+                    <h3>
+                        Title: @faculty.title
+                    </h3>
+
+                    <!--Modal stuff-->
+                    <button class="mdlBtn" data-info="faculty-@idableName">Show More</button>
+                    <div id="faculty-@idableName" title="More Info" class="infoMdl" style="display:none;">
+                        @if (!string.IsNullOrEmpty(faculty.tagline))
+                        {
+                            <p>Tagline: @faculty.tagline</p>
+                        }
+                        @if (!string.IsNullOrEmpty(faculty.interestArea))
+                        {
+                            <p>Interest Area: @faculty.interestArea</p>
+                        }
+                        @if (!string.IsNullOrEmpty(faculty.office))
+                        {
+                            <p>Office: @faculty.office</p>
+                        }
+                        @if (!string.IsNullOrEmpty(faculty.phone))
+                        {
+                            <p>Phone: @faculty.phone</p>
+                        }
+                        @if (!string.IsNullOrEmpty(faculty.email))
+                        {
+                            <p>Email: <a href="mailto:@faculty.email">@faculty.email</a></p>
+                        }
+                        @if (!string.IsNullOrEmpty(faculty.website))
+                        {
+                            <p>Website: <a href="@faculty.website" target="_blank">@faculty.website</a></p>
+                        }
+                        @if (!string.IsNullOrEmpty(faculty.twitter))
+                        {
+                            <p>Twitter: <a href="https://twitter.com/@faculty.twitter" target="_blank">@faculty.twitter</a></p>
+                        }
+                        @if (!string.IsNullOrEmpty(faculty.facebook))
+                        {
+                            <p>Facebook: <a href="https://www.facebook.com/@faculty.facebook" target="_blank">@faculty.facebook</a></p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Staff Section -->
+        <div id="staff">
+            @foreach (var staff in Model.pep.staff)
+            {
+                var idableName = staff.name.Replace(" ", "_").Replace(".", "").Replace(",", "").Replace("'", "").Replace("\"", "");
+                <div class="person">
+                    <img src="@staff.imagePath" alt="img" />
+                        <h2 >Name: @staff.name</h2>
+                        <h3>Title: @staff.title</h3>
+
+                    <!--Modal stuff-->
+                    <button class="mdlBtn" data-info="staff-@idableName">Show More</button>
+                    <div id="staff-@idableName" title="Course Information" class="infoMdl" style="display:none;">
+                        @if (!string.IsNullOrEmpty(staff.tagline))
+                        {
+                            <p>Tagline: @staff.tagline</p>
+                        }
+                        @if (!string.IsNullOrEmpty(staff.interestArea))
+                        {
+                            <p>Interest Area: @staff.interestArea</p>
+                        }
+                        @if (!string.IsNullOrEmpty(staff.office))
+                        {
+                            <p>Office: @staff.office</p>
+                        }
+                        @if (!string.IsNullOrEmpty(staff.phone))
+                        {
+                            <p>Phone: @staff.phone</p>
+                        }
+                        @if (!string.IsNullOrEmpty(staff.email))
+                        {
+                            <p>Email: <a href="mailto:@staff.email">@staff.email</a></p>
+                        }
+                        @if (!string.IsNullOrEmpty(staff.website))
+                        {
+                            <p>Website: <a href="@staff.website" target="_blank">@staff.website</a></p>
+                        }
+                        @if (!string.IsNullOrEmpty(staff.twitter))
+                        {
+                            <p>Twitter: <a href="https://twitter.com/@staff.twitter" target="_blank">@staff.twitter</a></p>
+                        }
+                        @if (!string.IsNullOrEmpty(staff.facebook))
+                        {
+                            <p>Facebook: <a href="https://www.facebook.com/@staff.facebook" target="_blank">@staff.facebook</a></p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <hr />
+</div>

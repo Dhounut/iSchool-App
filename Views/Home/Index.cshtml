@@ -1,0 +1,27 @@
+﻿@model WP3.Models.ApiMod
+@{
+    ViewData["Title"] = Model.pTitle;
+}
+
+<div class="hero">
+    <img src="~/imgs/maxresdefault.jpg" alt="ISchool word cloud" />
+</div>
+<section class="intro">
+    <h1>@Model.about.title</h1>
+    <p>@Model.about.description</p>
+    <p>@Model.about.quote - @Model.about.quoteAuthor</p>
+    </section>
+    <section class="news-research">
+        <h3>Latest News:</h3>
+        <div class="scroll">
+            @foreach (var newsItem in Model.news.older)
+            {
+                <div class="news-item">
+                    <h4>@newsItem.title</h4>
+                    <p>@newsItem.date</p>
+                    <a href="@newsItem.description" target="_blank">Read more</a>
+                </div>
+            }
+        </div>
+    </section>
+</>

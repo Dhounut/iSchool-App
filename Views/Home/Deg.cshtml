@@ -1,0 +1,119 @@
+﻿@model WP3.Models.ApiMod
+@{
+    ViewData["Title"] = @Model.pTitle;
+}
+
+<h1>Undergraduate Degrees</h1>
+<div id="uGradAccordion">
+    @foreach (var degree in @Model.deg.undergraduate)
+    {
+        <h3>@degree.title</h3>
+        <div>
+            <p>@degree.description</p> 
+            <h4>Concentrations:</h4>
+            <ul>
+                @foreach (var concentration in degree.concentrations)
+                {
+                    <li>@concentration</li> 
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+<h1>Graduate Degrees</h1>
+<div id="gradAccord">
+    @foreach (var gradDegree in Model.deg.graduate)
+    {
+        if (gradDegree.title != null)
+        {
+            <h3>@gradDegree.title</h3>
+        }
+        else
+        {
+            <h3>@gradDegree.degreeName</h3>
+        }
+        <div>
+            <p>@gradDegree.description</p>
+
+            <h4>Concentrations:</h4>
+            @if (gradDegree.concentrations != null && gradDegree.concentrations.Any())
+            {
+                <ul>
+                    @foreach (var degreeConcentration in gradDegree.concentrations)
+                    {
+                        <li>@degreeConcentration</li>
+                    }
+                </ul>
+            }
+            else if (gradDegree.availableCertificates != null && gradDegree.availableCertificates.Any())
+            {
+                <ul>
+                    @foreach (var certificate in gradDegree.availableCertificates)
+                    {
+                        <li>@certificate</li> 
+                    }
+                </ul>
+            }
+        </div>
+    }
+</div>
+
+<h1>Our Minors</h1>
+<!--minors-->
+<div id="minAccord">
+    @foreach (var minors in Model.min.UgMinors)
+    {
+        <h3>@minors.title</h3>
+        <div>
+            <p>@minors.description</p>
+
+            <h4>Courses:</h4>
+            <ul>
+                @foreach (var course in minors.courses)
+                {
+                    <li>
+                        <a href="javascript:void(0);" onclick="createModal('@course')" class="course-link">@course</a>
+                    </li>
+                }
+            </ul>
+            <p>@minors.note</p>
+        </div>
+    }
+</div>
+
+<!-- Modal for course information -->
+<div id="infoMdl" title="Course Information" style="display:none;">
+    <div class="modal-content">
+        <h3 id="courseTitle">Loading...</h3>
+        <p><strong>Course ID:</strong> <span id="courseID">Loading...</span></p>
+        <p><strong>Description:</strong> <span id="courseDescription">Loading...</span></p>
+    </div>
+</div>
+
+<script>
+function createModal(courseId) {
+    $("#infoMdl").dialog({
+        modal: true,
+        width: 600,
+        height: 450,
+        close: function() {
+            document.getElementById('courseTitle').textContent = '';
+            document.getElementById('courseID').textContent = '';
+            document.getElementById('courseDescription').textContent = '';
+        }
+    });
+    
+    @foreach(var course in Model.crs.courses)
+    {
+        <text>
+        if('@course.courseID' === courseId) {
+            document.getElementById('courseTitle').textContent = '@course.title';
+            document.getElementById('courseID').textContent = '@course.courseID';
+            document.getElementById('courseDescription').textContent = '@course.description';
+        }
+        </text>
+    }
+}
+</script>
+
